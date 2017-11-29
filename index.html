@@ -102,9 +102,10 @@
 
 						<!-- Start edit here  -->
 						<ul>
-						  <li>Raw time series data must be transform into examples as standard classifications algorithms cannot be directly applied to raw time-series accelerometer data.</li>
-						  <li>Data is divided into 10 second segments and then generated features that were based on the 200 readings contained within each 10 second segment.</li>
-						  <li>Duration of each segment is referred to as the example duration(ED).</li>
+						  The process of detecting activities was performed in three steps:
+1) Data Collection: I collected the 3-dimensional acceleration data from the accelerometer on my Android phone.
+2) Feature Extraction: I identified and extracted distinct features in the accelerometer data for each activity that I wanted to detect.
+3) Activity Classification: I used the features extracted for the various activities to train the classifier. The classifier was then used on new accelerometer data to identify the activity being performed.
 						<ul>
 						<!-- Stop edit here -->
 
