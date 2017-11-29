@@ -162,11 +162,17 @@
 									    <li> Number of peaks in specrum of y-axis</li>
 									    <li> Integral of specrum of y-axis data from 0 to 5Hz</li>
 								     </ol>
+							   After calculating the above 6 features for the different activities
+performed as a part of the training procedure, we fed the training algorithm two inputs: the features and the appropriate response (i.e. the activity the feature denotes).
 						 </div>
 					   <div class="heading">2.3 Activity classification</div>		  
-			                          <div class="text">	 
+			                          <div class="text">
+							In general, a training algorithm requires many training data points to build a reliable model for detection. To this extent, we collected over a thousand training data points of each activity for classifier training.
+							To begin with, I grouped the features in an array in the following order – Walking, Running, Idling, Climbing upstairs and Going downstairs.We stored the data in 6 files. featurewalk is a 100x6 array of 6 features the raw accelerometer data collected while one group member was walking. Similarly, featureRun is a 1000×6 array of six features calculated using the raw accelerometer data collected while the member was running, and so on. Once we had the features for all the activities in the data array, we noticed that features corresponding to Run were on a relatively larger scale than features corresponding to either Idle or Walking state. This creates a bias in a feature across different activities and will affect the capability of the algorithm to accurately detect the activity being performed for new data (which might be scaled differently). Therefore, we normalized the values in data to confine the range of values to be between [0, 1].Once I had the features for all the activities in the data array, I noticed that features corresponding to Run were on a relatively larger scale than features corresponding to either Idle or Walking state. This creates a bias in a feature across different activities and will affect the capability of the algorithm to accurately detect the activity being performed for new data (which might be scaled differently). Therefore, we normalized the values in data to confine the range of values to be between [0, 1].
+							 nce the data was normalized and ready to be used, I had to define the response that the machine learning algorithm has to output when it receives the data array as an input. The input data and the output response would then be used to teach the machine algorithm how to classify new data. To build the output response vector, I first assigned an integer for each activity: -1, 0, 1, 2, 3 for going downstairs, idling, climbing upstairs, walking and running respectively. Since I need a response for each input feature set, I created a column vector (containing these integers) of the length of training feature data points of each activity as the response vector. To make the detected activity easily human readable, I converted the response vector to a categorical array with values ‘Going Downstairs’, ‘Idling’, ‘Climbing Upstairs’, ‘Walking’, ‘Running’ and ‘Transition.After generating the response array above, I then trained the K-NN algorithm to obtain a model. To do this, I used the FITCKNN function from Statistics Toolbox; For this application, after a few trials, we chose K (‘NumNeighbors’ property) to be 30 as this provided the required performance and accuracy for detection.Having generated a model using the training data, I wanted to use it on new data from my phone to validate the detected activity and thereby validate the model. For this, I used the custom function called extractFeature MATLAB function to calculate the six features of interest. The calculated features (saved to the newFeature variable) are then used along with the model to detect the activity being performed.
+							  
 
-					
+					   </div>
 					<!-- Stop edit here -->
 
 				</div> 
